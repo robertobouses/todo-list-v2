@@ -1,4 +1,4 @@
-module github.com/robertobouses/w2v-api
+module github.com/robertobouses/todo-list-v2
 
 go 1.20
 
