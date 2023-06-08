@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/robertobouses/todo-list-v2/tasks"
 )
 
 type Server struct {
@@ -12,15 +11,12 @@ type Server struct {
 	handler Handler
 }
 
-type Handler struct {
-}
-
 func NewServer() Server {
 	router := gin.Default()
 	handler := Handler{}
 
 	router.GET("/hello", handler.Hello)
-	router.POST("/user", tasks.HandlerTask{}.CreateUserRequest)
+	router.POST("/user", HandlerTask{}.CreateUserRequest)
 	return Server{
 		engine:  router,
 		handler: handler,
