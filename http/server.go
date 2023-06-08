@@ -16,7 +16,7 @@ func NewServer() Server {
 	handler := Handler{}
 
 	router.GET("/hello", handler.Hello)
-	router.POST("/user", HandlerTask{}.CreateUserRequest)
+	router.POST("/user", handler.CreateUserRequest)
 	return Server{
 		engine:  router,
 		handler: handler,
