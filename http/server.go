@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/robertobouses/todo-list-v2/tasks"
 )
 
 type Server struct {
@@ -14,17 +15,12 @@ type Server struct {
 type Handler struct {
 }
 
-type reg struct {
-	Email    string `json: "email"`
-	Password string `json: "password"`
-}
-
 func NewServer() Server {
 	router := gin.Default()
 	handler := Handler{}
 
 	router.GET("/hello", handler.Hello)
-	router.POST("/user", handler.CreateUser)
+	router.POST("/user", tasks.HandlerTask{}.CreateUserRequest)
 	return Server{
 		engine:  router,
 		handler: handler,
@@ -38,12 +34,4 @@ func (H Handler) Hello(c *gin.Context) {
 func (s *Server) Run(puerto string) error {
 	return s.engine.Run(puerto)
 
-}
-
-func (H Handler) CreateUser(c *gin.Context) {
-	var request reg
-	if err := c.ShouldBindJSON(&request); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
 }
